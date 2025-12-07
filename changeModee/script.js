@@ -6,19 +6,18 @@ modeBtn.addEventListener("click", () => {
     if (currMode === "light") {
         currMode = "dark";
         
-        // OLD WAY: body.classList.add("dark");
-        // NEW WAY (Direct JS):
+     
         body.style.backgroundColor = "black";  
-        body.style.color = "white";  // Changing text color so you can read it!
+        body.style.color = "white";  
 
     } else {
         currMode = "light";
         
-        // OLD WAY: body.classList.add("light");
-        // NEW WAY (Direct JS):
+       
         body.style.backgroundColor = "white";
-        body.style.color = "black"; // Changing text color back
+        body.style.color = "black"; 
     }
 
     console.log(currMode);
 });
+
