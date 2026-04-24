@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuṭṭaka Yantra — Aryabhata's Pulverizer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FDF8F0;
+  --bg2: #F5ECD8;
+  --bg3: #EDD9B5;
+  --primary: #8B4513;
+  --primary-dark: #5C2D0A;
+  --accent: #D4A574;
+  --accent2: #C17F3A;
+  --text: #2C1810;
+  --text-muted: #6B4226;
+  --indigo: #1E3A5F;
+  --indigo-light: #2A5080;
+  --green: #2D7A3A;
+  --green-bg: #E8F5EA;
+  --red: #A52020;
+  --red-bg: #FAE8E8;
+  --gold: #B8860B;
+  --shadow: rgba(44,24,16,0.15);
+  --radius: 12px;
+}
+[data-theme="dark"] {
+  --bg: #1A110A;
+  --bg2: #241810;
+  --bg3: #2E1E12;
+  --primary: #D4A574;
+  --primary-dark: #E8C08A;
+  --accent: #8B4513;
+  --accent2: #A0622A;
+  --text: #F5ECD8;
+  --text-muted: #C4956A;
+  --indigo: #3A6FA0;
+  --indigo-light: #4A8FCC;
+  --green: #5DBF6A;
+  --green-bg: #0D2E12;
+  --red: #E05050;
+  --red-bg: #2E0D0D;
+  --gold: #DAA520;
+  --shadow: rgba(0,0,0,0.4);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Crimson Pro', Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.7;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Parchment texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page-wrapper { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+
+/* ─── HEADER ─── */
+header {
+  text-align: center;
+  padding: 3.5rem 1rem 2rem;
+  position: relative;
+}
+.header-ornament {
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  color: var(--accent2);
+  text-transform: uppercase;
+  font-family: 'Cinzel', serif;
+  margin-bottom: 0.5rem;
+}
+header h1 {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 900;
+  color: var(--primary);
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  text-shadow: 2px 3px 12px var(--shadow);
+}
+header h1 span { color: var(--accent2); }
+.header-sub {
+  margin-top: 0.75rem;
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: 1.15rem;
+  font-weight: 300;
+}
+.divider {
+  margin: 1.5rem auto;
+  width: 200px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+.divider-ornament {
+  text-align: center;
+  font-size: 1.4rem;
+  color: var(--accent2);
+  margin: -0.5rem 0 1.5rem;
+  letter-spacing: 0.5em;
+}
+
+/* ─── THEME TOGGLE ─── */
+.theme-btn {
+  position: fixed;
+  top: 1.2rem; right: 1.2rem;
+  background: var(--bg2);
+  border: 1.5px solid var(--accent);
+  color: var(--text);
+  border-radius: 50px;
+  padding: 0.45rem 1rem;
+  font-size: 0.85rem;
+  font-family: 'Crimson Pro', serif;
+  cursor: pointer;
+  z-index: 100;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+.theme-btn:hover { background: var(--accent); color: var(--bg); }
+
+/* ─── IKS PANEL ─── */
+.iks-panel {
+  background: linear-gradient(135deg, var(--indigo) 0%, var(--indigo-light) 100%);
+  color: #E8F0FA;
+  border-radius: var(--radius);
+  margin-bottom: 2rem;
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(30,58,95,0.3);
+}
+.iks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.1rem 1.5rem;
+  cursor: pointer;
+  user-select: none;
+  background: rgba(0,0,0,0.15);
+  transition: background 0.2s;
+}
+.iks-header:hover { background: rgba(0,0,0,0.25); }
+.iks-header h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #DAE8FF;
+}
+.iks-toggle { font-size: 1.2rem; transition: transform 0.3s; }
+.iks-toggle.open { transform: rotate(180deg); }
+.iks-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.iks-body.open { max-height: 600px; }
+.iks-content {
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+@media(max-width:640px) { .iks-content { grid-template-columns: 1fr; } }
+.iks-item h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #9CC5F8;
+  margin-bottom: 0.3rem;
+}
+.iks-quote {
+  grid-column: 1 / -1;
+  border-left: 3px solid var(--accent);
+  padding-left: 1rem;
+  font-style: italic;
+  color: #C8DDF8;
+  font-size: 1.05rem;
+}
+
+/* ─── INPUT CARD ─── */
+.input-card {
+  background: var(--bg2);
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px var(--shadow);
+}
+.equation-display {
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  color: var(--primary);
+  margin-bottom: 2rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.equation-display .var { color: var(--indigo); font-style: italic; }
+.inputs-row {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.8rem;
+}
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.input-group label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.input-group input {
+  width: 110px;
+  padding: 0.65rem 1rem;
+  border: 2px solid var(--accent);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.2rem;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.input-group input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(139,69,19,0.15);
+}
+.input-sep {
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
+  color: var(--primary);
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  padding-top: 1.8rem;
+}
+.solve-btn {
+  display: block;
+  margin: 0 auto;
+  padding: 0.9rem 2.5rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: #FDF8F0;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Cinzel', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(139,69,19,0.4);
+  transition: transform 0.15s, box-shadow 0.15s, background 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.solve-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent);
+  pointer-events: none;
+}
+.solve-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(139,69,19,0.5); }
+.solve-btn:active { transform: translateY(0); }
+.solve-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+/* ─── OUTPUT ─── */
+#output { display: none; }
+#output.visible { display: block; animation: fadeIn 0.5s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+.result-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.result-header h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  color: var(--primary);
+  letter-spacing: 0.06em;
+}
+
+.section-block {
+  background: var(--bg2);
+  border: 1.5px solid var(--bg3);
+  border-radius: var(--radius);
+  margin-bottom: 1.4rem;
+  overflow: hidden;
+  box-shadow: 0 2px 10px var(--shadow);
+}
+.section-title {
+  background: var(--bg3);
+  padding: 0.7rem 1.3rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary-dark);
+  border-bottom: 1.5px solid var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.section-body { padding: 1.2rem 1.3rem; }
+
+/* ─── STATUS BADGE ─── */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  font-family: 'Cinzel', serif;
+}
+.status-badge.ok { background: var(--green-bg); color: var(--green); border: 1.5px solid var(--green); }
+.status-badge.err { background: var(--red-bg); color: var(--red); border: 1.5px solid var(--red); }
+.status-detail { font-size: 0.95rem; margin-top: 0.7rem; color: var(--text-muted); font-style: italic; }
+
+/* ─── TABLES ─── */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  overflow-x: auto;
+}
+.table-wrapper { overflow-x: auto; }
+.styled-table th {
+  background: var(--indigo);
+  color: #C8DDF8;
+  padding: 0.6rem 1rem;
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+.styled-table td {
+  padding: 0.55rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid var(--bg3);
+  color: var(--text);
+  transition: background 0.15s;
+}
+.styled-table tr:last-child td { border-bottom: none; }
+.styled-table tr:nth-child(even) td { background: var(--bg3); }
+.styled-table tr:hover td { background: var(--accent); color: var(--bg); }
+.styled-table td.highlight { color: var(--gold); font-weight: 700; }
+.styled-table td.dim { color: var(--text-muted); }
+
+/* ─── VALLI TABLE ─── */
+.valli-wrap {
+  overflow-x: auto;
+}
+.valli-table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  font-family: 'JetBrains Mono', monospace;
+}
+.valli-table td {
+  border: 1.5px solid var(--accent);
+  padding: 0.6rem 1rem;
+  text-align: center;
+  min-width: 60px;
+  position: relative;
+  font-size: 0.95rem;
+}
+.valli-table .label-cell {
+  background: var(--indigo);
+  color: #C8DDF8;
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  border-color: var(--indigo);
+  font-weight: 600;
+}
+.valli-table .seed { background: rgba(180, 120, 40, 0.2); font-weight: 700; }
+.valli-table .active { background: rgba(45, 122, 58, 0.15); color: var(--green); font-weight: 700; }
+.valli-arrow {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin: 0.5rem 0;
+  font-style: italic;
+}
+
+/* ─── SOLUTION HERO ─── */
+.solution-hero {
+  text-align: center;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, var(--bg3), var(--bg2));
+  border-radius: 10px;
+  border: 2px solid var(--accent2);
+}
+.solution-hero .label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+.solution-hero .values {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  color: var(--primary);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.solution-hero .values span { color: var(--gold); }
+.verify-badge {
+  display: inline-block;
+  margin-top: 0.8rem;
+  padding: 0.3rem 0.9rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+}
+.verify-badge.ok { background: var(--green-bg); color: var(--green); }
+.verify-badge.err { background: var(--red-bg); color: var(--red); }
+
+/* ─── GENERAL SOLUTION ─── */
+.gen-sol {
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--bg3);
+  border-left: 4px solid var(--indigo);
+  padding: 1rem 1.3rem;
+  border-radius: 0 8px 8px 0;
+  font-size: 1rem;
+  line-height: 2;
+  color: var(--text);
+}
+.gen-sol .var { color: var(--indigo-light); font-weight: 600; }
+.gen-sol .param { color: var(--gold); font-weight: 700; }
+
+/* t-slider */
+.t-slider-section { margin-top: 1rem; }
+.t-slider-section label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+.t-slider-section input[type=range] {
+  width: 100%;
+  accent-color: var(--primary);
+}
+.t-preview {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.95rem;
+  text-align: center;
+  margin-top: 0.5rem;
+  padding: 0.4rem;
+  background: var(--bg);
+  border-radius: 6px;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* ─── STEP-BY-STEP ─── */
+.steps-list { counter-reset: step; }
+.step-item {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: flex-start;
+}
+.step-num {
+  flex-shrink: 0;
+  width: 32px; height: 32px;
+  background: var(--primary);
+  color: var(--bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-top: 0.15rem;
+}
+.step-content { font-size: 0.97rem; color: var(--text); line-height: 1.65; }
+.step-content strong { color: var(--primary-dark); }
+.step-content em { color: var(--indigo-light); font-style: normal; font-weight: 600; font-family: 'JetBrains Mono', monospace; font-size: 0.9em; }
+
+/* ─── COPY BTN ─── */
+.copy-btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.35rem 0.8rem;
+  border: 1.5px solid var(--accent);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-family: 'Crimson Pro', serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-left: auto;
+}
+.copy-btn:hover { background: var(--accent); color: var(--bg); }
+
+/* ─── TOOLTIP ─── */
+.tooltip {
+  position: relative;
+  border-bottom: 1px dotted var(--accent2);
+  cursor: help;
+}
+.tooltip::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--indigo);
+  color: #E8F0FA;
+  padding: 0.35rem 0.7rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 50;
+  font-family: 'Crimson Pro', serif;
+  font-style: italic;
+}
+.tooltip:hover::after { opacity: 1; }
+
+/* ─── FOOTER ─── */
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  font-style: italic;
+  border-top: 1px solid var(--bg3);
+  margin-top: 3rem;
+}
+footer strong { font-style: normal; color: var(--primary); }
+
+/* ─── ERROR FLASH ─── */
+.error-msg {
+  background: var(--red-bg);
+  color: var(--red);
+  border: 1.5px solid var(--red);
+  border-radius: 8px;
+  padding: 0.75rem 1.1rem;
+  font-size: 0.95rem;
+  margin-top: 1rem;
+  display: none;
+  animation: fadeIn 0.3s;
+}
+.error-msg.visible { display: block; }
+
+/* ─── LOADING ─── */
+.loading-overlay {
+  text-align: center;
+  padding: 1.5rem;
+  font-style: italic;
+  color: var(--text-muted);
+  display: none;
+  font-size: 1rem;
+}
+.loading-overlay.visible { display: block; animation: pulse 1s infinite alternate; }
+@keyframes pulse { from { opacity: 0.5; } to { opacity: 1; } }
+
+/* ─── RESPONSIVE ─── */
+@media(max-width: 500px) {
+  .inputs-row { gap: 0.8rem; }
+  .input-group input { width: 85px; font-size: 1rem; }
+  .input-sep { font-size: 1.2rem; padding-top: 1.5rem; }
+}
+</style>
+</head>
+<body>
+<button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle dark/light mode">🌓 Toggle Theme</button>
+
+<div class="page-wrapper">
+
+<!-- HEADER -->
+<header>
+  <div class="header-ornament">॥ Ancient Indian Mathematics ॥</div>
+  <h1>🧮 <span>Kuṭṭaka</span> Yantra</h1>
+  <div class="header-sub">Aryabhata's Pulverizer — Solver for Linear Diophantine Equations</div>
+  <div class="divider"></div>
+  <div class="divider-ornament">✦ ✧ ✦</div>
+</header>
+
+<!-- IKS PANEL -->
+<div class="iks-panel" role="region" aria-label="Indian Knowledge Systems information">
+  <div class="iks-header" onclick="toggleIKS()" aria-expanded="true">
+    <h2>📜 Kuṭṭaka in the Indian Knowledge System (IKS)</h2>
+    <span class="iks-toggle open" id="iks-arrow">▼</span>
+  </div>
+  <div class="iks-body open" id="iks-body">
+    <div class="iks-content">
+      <div class="iks-item">
+        <h3>📅 Origin</h3>
+        <p><em>Āryabhaṭīya</em> (499 CE), <em>Gaṇitapāda</em> verses 32–33. Āryabhaṭa (b. 476 CE) formulated this as a systematic algorithm—predating European equivalents by over a millennium.</p>
+      </div>
+      <div class="iks-item">
+        <h3>🔤 Etymology</h3>
+        <p><span class="tooltip" data-tip="Sanskrit: to pound, to crush, to pulverize"><em>Kuṭṭaka</em></span> = "Pulverizer" or "Breaker." The name describes the repeated division that gradually reduces numbers, like grinding spices to reveal their hidden essence.</p>
+      </div>
+      <div class="iks-item">
+        <h3>🌌 Purpose</h3>
+        <p>Originally developed for <em>astronomical calculations</em>: computing planetary conjunctions, determining calendar cycles (<em>Mahāyuga</em>), and finding elapsed days in cosmic time-cycles.</p>
+      </div>
+      <div class="iks-item">
+        <h3>👨‍🏫 Later Scholars</h3>
+        <p><span class="tooltip" data-tip="7th century mathematician from South India">Bhāskara I</span> wrote the first detailed commentary. <span class="tooltip" data-tip="598–668 CE, extended Kuṭṭaka">Brahmagupta</span> generalized it. <span class="tooltip" data-tip="12th century, Lilavati & Bijaganita">Bhāskara II</span> further refined the method.</p>
+      </div>
+      <div class="iks-item">
+        <h3>🌍 Global Impact</h3>
+        <p>Predates Euler's algorithm (1763) and connects directly to the modern Chinese Remainder Theorem, modular arithmetic, and RSA cryptography. A cornerstone of number theory.</p>
+      </div>
+      <div class="iks-item">
+        <h3>🌿 The Vallī</h3>
+        <p>The <span class="tooltip" data-tip="Sanskrit: creeping vine, tendril"><em>Vallī</em></span> (creeper) table organizes quotients into a climbing vine-like structure, propagating solutions backwards — a beautiful metaphor for emergence of order from apparent chaos.</p>
+      </div>
+      <div class="iks-quote">
+        "Like grinding spices to reveal their essence, the <em>Kuṭṭaka</em> pulverizes numbers to reveal hidden integer solutions — a gift of Āryabhaṭa to all of mathematics."
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INPUT CARD -->
+<div class="input-card">
+  <div class="equation-display">
+    <span class="var">a</span> · <span class="var">x</span> + <span class="var">c</span> = <span class="var">b</span> · <span class="var">y</span>
+  </div>
+  <div class="inputs-row">
+    <div class="input-group">
+      <label for="inp-a">Coefficient a</label>
+      <input type="number" id="inp-a" value="3" aria-label="Coefficient a" placeholder="a">
+    </div>
+    <div class="input-sep">·x +</div>
+    <div class="input-group">
+      <label for="inp-c">Constant c</label>
+      <input type="number" id="inp-c" value="1" aria-label="Constant c" placeholder="c">
+    </div>
+    <div class="input-sep">= </div>
+    <div class="input-group">
+      <label for="inp-b">Coefficient b</label>
+      <input type="number" id="inp-b" value="5" aria-label="Coefficient b" placeholder="b">
+    </div>
+    <div class="input-sep">·y</div>
+  </div>
+  <button class="solve-btn" onclick="solve()" id="solve-btn" aria-label="Solve using Kuṭṭaka method">
+    🧵 Pulverize &amp; Solve
+  </button>
+  <div class="error-msg" id="error-msg" role="alert"></div>
+  <div class="loading-overlay" id="loading">Pulverizing numbers… 🪨→🌾</div>
+</div>
+
+<!-- OUTPUT -->
+<div id="output">
+
+  <div class="result-header">
+    <h2>📐 Solution Output</h2>
+    <button class="copy-btn" onclick="copyResults()" aria-label="Copy results to clipboard">📋 Copy</button>
+  </div>
+
+  <!-- 1. EXISTENCE CHECK -->
+  <div class="section-block">
+    <div class="section-title">① Solution Existence Check</div>
+    <div class="section-body" id="existence-body"></div>
+  </div>
+
+  <!-- 2. PULVERIZATION TABLE -->
+  <div class="section-block" id="pulv-block">
+    <div class="section-title">② <span class="tooltip" data-tip="Repeated Euclidean division chain">Forward Pulverization Table</span></div>
+    <div class="section-body" id="pulv-body"></div>
+  </div>
+
+  <!-- 3. VALLI TABLE -->
+  <div class="section-block" id="valli-block">
+    <div class="section-title">③ <span class="tooltip" data-tip="Sanskrit: Creeping Vine — the backward propagation table">Vallī (Creeper) Table</span></div>
+    <div class="section-body" id="valli-body"></div>
+  </div>
+
+  <!-- 4. MINIMAL SOLUTION -->
+  <div class="section-block" id="minsol-block">
+    <div class="section-title">④ Minimal Positive Solution</div>
+    <div class="section-body" id="minsol-body"></div>
+  </div>
+
+  <!-- 5. GENERAL SOLUTION -->
+  <div class="section-block" id="gensol-block">
+    <div class="section-title">⑤ General Solution (Parameter t ∈ ℤ)</div>
+    <div class="section-body" id="gensol-body"></div>
+  </div>
+
+  <!-- 6. STEP BY STEP -->
+  <div class="section-block">
+    <div class="section-title">⑥ Step-by-Step Explanation</div>
+    <div class="section-body" id="steps-body"></div>
+  </div>
+
+</div><!-- /output -->
+
+<!-- FOOTER -->
+<footer>
+  <p>Built with ☕ and reverence for <strong>Ancient Indian Mathematics</strong></p>
+  <p>Kuṭṭaka by <strong>Āryabhaṭa</strong> (499 CE) · <em>Āryabhaṭīya, Gaṇitapāda</em> verses 32–33</p>
+  <p style="margin-top:0.5rem;">Part of the <strong>Indian Knowledge Systems (IKS) Project</strong> · 2026</p>
+
+  <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--bg3);">
+    <p style="font-family:'Cinzel',serif;font-size:0.95rem;letter-spacing:0.06em;color:var(--primary);font-style:normal;font-weight:600;margin-bottom:0.5rem;">
+      🎓 Semester 2 Mini Project
+    </p>
+    <p style="font-style:normal;color:var(--text-muted);margin-bottom:0.3rem;">
+      <strong style="color:var(--primary-dark);">Indira College of Engineering and Management, Pune</strong>
+    </p>
+    <p style="font-style:normal;color:var(--text-muted);margin-bottom:1rem;">F Division &nbsp;·&nbsp; Indian Knowledge Systems (IKS)</p>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:0.6rem 1.2rem;font-style:normal;font-size:0.92rem;">
+      <span style="padding:0.3rem 0.9rem;background:var(--bg2);border:1px solid var(--accent);border-radius:50px;color:var(--text);">1. Sandesh Shirshe</span>
+      <span style="padding:0.3rem 0.9rem;background:var(--bg2);border:1px solid var(--accent);border-radius:50px;color:var(--text);">2. Janhavi Shirose</span>
+      <span style="padding:0.3rem 0.9rem;background:var(--bg2);border:1px solid var(--accent);border-radius:50px;color:var(--text);">3. Sanika Sonkamble</span>
+      <span style="padding:0.3rem 0.9rem;background:var(--bg2);border:1px solid var(--accent);border-radius:50px;color:var(--text);">4. Abdul Rahman Sayed</span>
+      <span style="padding:0.3rem 0.9rem;background:var(--bg2);border:1px solid var(--accent);border-radius:50px;color:var(--text);">5. Namrata Sitaphal</span>
+      <span style="padding:0.3rem 0.9rem;background:var(--bg2);border:1px solid var(--accent);border-radius:50px;color:var(--text);">6. Rajratna Shirtope</span>
+    </div>
+  </div>
+</footer>
+
+</div><!-- /page-wrapper -->
+
+<script>
+// ─────────────────────────────────────────────────────────
+// THEME
+// ─────────────────────────────────────────────────────────
+function toggleTheme() {
+  const d = document.documentElement;
+  const isDark = d.getAttribute('data-theme') === 'dark';
+  d.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  localStorage.setItem('kuttaka-theme', isDark ? 'light' : 'dark');
+}
+(function() {
+  const saved = localStorage.getItem('kuttaka-theme');
+  if (saved) document.documentElement.setAttribute('data-theme', saved);
+})();
+
+// ─────────────────────────────────────────────────────────
+// IKS TOGGLE
+// ─────────────────────────────────────────────────────────
+function toggleIKS() {
+  const body = document.getElementById('iks-body');
+  const arrow = document.getElementById('iks-arrow');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+// ─────────────────────────────────────────────────────────
+// MATH UTILITIES
+// ─────────────────────────────────────────────────────────
+function gcd(a, b) {
+  a = Math.abs(a); b = Math.abs(b);
+  while (b) { [a, b] = [b, a % b]; }
+  return a;
+}
+
+// Extended Euclidean algorithm: returns {g, x, y} where a*x + b*y = g
+function extGcd(a, b) {
+  if (b === 0) return { g: a, x: 1, y: 0 };
+  const { g, x, y } = extGcd(b, a % b);
+  return { g, x: y, y: x - Math.floor(a / b) * y };
+}
+
+// ─────────────────────────────────────────────────────────
+// KUTTAKA ALGORITHM
+// ─────────────────────────────────────────────────────────
+
+/**
+ * Perform the pulverization (Euclidean) chain.
+ * Returns array of steps: [{dividend, divisor, quotient, remainder}]
+ * Continues until remainder === 0 or 1
+ */
+function pulverize(a, b) {
+  // Ensure a < b for standard presentation (caller can swap)
+  const steps = [];
+  let dividend = b, divisor = a;
+  while (divisor > 1) {
+    const q = Math.floor(dividend / divisor);
+    const r = dividend % divisor;
+    steps.push({ dividend, divisor, quotient: q, remainder: r });
+    if (r === 0) break;
+    dividend = divisor;
+    divisor = r;
+  }
+  return steps;
+}
+
+/**
+ * Build the Vallī (creeper) table from quotients.
+ * The algorithm propagates backwards.
+ * Given quotients [q1, q2, ..., qn], the Vallī starts from the bottom:
+ *   v[-1] = 0, v[0] = 1 (seeds at bottom)
+ *   then v[k] = v[k-1] * q[n-k] + v[k-2]  (building upward)
+ *
+ * Returns array from bottom to top: [0, 1, val2, val3, ...]
+ * along with the quotients array used.
+ */
+function buildValli(quotients) {
+  // Reverse quotients (work bottom-up)
+  const qs = [...quotients].reverse();
+  const valli = [0, 1];
+  for (let i = 0; i < qs.length - 1; i++) {
+    const next = valli[valli.length - 1] * qs[i] + valli[valli.length - 2];
+    valli.push(next);
+  }
+  return { valli, reversedQ: qs };
+}
+
+// ─────────────────────────────────────────────────────────
+// MAIN SOLVER
+// ─────────────────────────────────────────────────────────
+function solveKuttaka(aIn, bIn, cIn) {
+  // We solve: a*x + c = b*y  →  a*x - b*y = -c  →  b*y - a*x = c
+  // This is equivalent to finding x,y such that b*y ≡ c (mod a) or a*x ≡ -c (mod b)
+  // Actually: a*x - b*y = -c, so we need: a*x ≡ -c (mod b)
+  // Use extended gcd on (a, b)
+
+  const d = gcd(Math.abs(aIn), Math.abs(bIn));
+
+  if (cIn % d !== 0) {
+    return { solvable: false, d, reason: `GCD(${aIn}, ${bIn}) = ${d}, which does not divide c = ${cIn}` };
+  }
+
+  // Reduce: a*x + c = b*y  →  (a/d)*x - (b/d)*y = -c/d
+  // Standard Kuttaka: solve a*x ≡ c (mod b) — we do it via extended gcd
+  // We need: a*x + c = b*y  →  a*x ≡ -c (mod b)
+  // Use extended Euclidean: find x0,y0 such that |a|*x0 + |b|*y0 = d
+  // Then x0*a ≡ d (mod b), so x0*(a/d) ≡ 1 (mod b/d), etc.
+
+  // For Kuṭṭaka presentation, work with |a|, |b| and adjust signs at end
+  const A = Math.abs(aIn), B = Math.abs(bIn);
+
+  // Pulverization chain: always divide larger by smaller
+  // We present: B ÷ A → ... until we reach gcd
+  const swapped = (A > B);
+  const big = swapped ? A : B;
+  const small = swapped ? B : A;
+
+  const steps = pulverize(small, big);
+  // Quotients array (skip last if remainder=0 — that's the gcd step)
+  const quotients = steps.filter(s => s.remainder !== 0).map(s => s.quotient);
+  if (quotients.length === 0 && steps.length > 0) {
+    // b divides a exactly — special case, gcd = b
+    // e.g. a=6, b=3: 6÷3 = 2 remainder 0 → gcd=3
+    quotients.push(steps[steps.length - 1].quotient);
+  }
+
+  // Extended GCD for solution
+  const { x: ex, y: ey } = extGcd(A, B);
+  // A*ex + B*ey = d (or A*ex - B*ey = d depending on signs from extGcd)
+  // We want: aIn * x - bIn * y = -cIn
+  // i.e. aIn * x + bIn * (-y) = -cIn
+
+  // From aIn*x ≡ -cIn (mod bIn):
+  // extGcd(A,B) gives A*ex ≡ d (mod B)
+  // so x0 = ex * (-cIn / d) gives A*x0 ≡ -cIn*sign(aIn) (mod B)
+  const multiplier = -cIn / d;
+  let x0 = ex * multiplier;
+  // y0 from: aIn*x0 + cIn = bIn*y0
+  // Adjust x0 sign for aIn sign
+  if (aIn < 0) x0 = -x0;
+
+  let y0 = (aIn * x0 + cIn) / bIn;
+
+  // General solution step
+  const stepB = B / d; // b/d
+  const stepA = A / d; // a/d
+
+  // Sign adjustment for general solution based on original signs
+  // x = x0 + (B/d) * t (if a > 0, b > 0)
+  // y = y0 + (A/d) * t
+  // Adjust for signs:
+  let xStep = (bIn > 0 ? 1 : -1) * stepB;
+  let yStep = (aIn > 0 ? 1 : -1) * stepA;
+
+  // Minimal positive x
+  let tForMinX = 0;
+  if (xStep !== 0) {
+    tForMinX = Math.ceil(-x0 / xStep);
+  }
+  let minX = x0 + xStep * tForMinX;
+  let minY = y0 + yStep * tForMinX;
+
+  // Verify
+  const check = aIn * minX + cIn === bIn * minY;
+
+  // Build Vallī display info
+  const valliData = buildValli(quotients.length > 0 ? quotients : [1]);
+
+  return {
+    solvable: true, d,
+    aIn, bIn, cIn,
+    A, B, swapped,
+    steps, quotients,
+    valliData,
+    x0, y0,
+    minX, minY,
+    xStep, yStep,
+    check,
+    stepA, stepB
+  };
+}
+
+// ─────────────────────────────────────────────────────────
+// UI RENDERING
+// ─────────────────────────────────────────────────────────
+
+function showError(msg) {
+  const el = document.getElementById('error-msg');
+  el.textContent = '⚠ ' + msg;
+  el.classList.add('visible');
+  document.getElementById('output').classList.remove('visible');
+}
+function clearError() {
+  document.getElementById('error-msg').classList.remove('visible');
+}
+
+function renderExistence(result) {
+  const el = document.getElementById('existence-body');
+  if (!result.solvable) {
+    el.innerHTML = `
+      <span class="status-badge err">✗ No Integer Solution Exists</span>
+      <div class="status-detail">${result.reason}</div>
+      <div class="status-detail" style="margin-top:0.5rem;">
+        For the equation <em>ax + c = by</em> to have integer solutions,<br>
+        GCD(a, b) must divide c. Since ${result.d} ∤ ${result.d !== 0 ? '' : ''} the equation, no solution exists.
+      </div>`;
+  } else {
+    el.innerHTML = `
+      <span class="status-badge ok">✓ Solution Exists!</span>
+      <div class="status-detail">
+        GCD(${result.aIn}, ${result.bIn}) = <strong>${result.d}</strong>,
+        and ${result.d} divides c = ${result.cIn}
+        ${result.d > 1 ? `(${result.cIn} ÷ ${result.d} = ${result.cIn / result.d})` : ''}.
+        ✨ A solution is guaranteed.
+      </div>`;
+  }
+}
+
+function renderPulverization(result) {
+  if (!result.solvable) { document.getElementById('pulv-block').style.display = 'none'; return; }
+  document.getElementById('pulv-block').style.display = '';
+
+  const { steps, A, B, swapped } = result;
+  let html = '';
+  if (swapped) {
+    html += `<p style="font-style:italic;color:var(--text-muted);margin-bottom:0.8rem;font-size:0.9rem;">
+      Note: |a| = ${A} &gt; |b| = ${B}, so we begin the chain with the larger value as dividend.
+    </p>`;
+  }
+  html += `<div class="table-wrapper"><table class="styled-table"><thead><tr>
+    <th>Step</th><th>Dividend</th><th>Divisor</th><th>Quotient (q)</th><th>Remainder (r)</th>
+  </tr></thead><tbody>`;
+
+  steps.forEach((s, i) => {
+    const isLast = i === steps.length - 1;
+    html += `<tr>
+      <td>${i + 1}</td>
+      <td>${s.dividend}</td>
+      <td>${s.divisor}</td>
+      <td class="highlight">${s.quotient}</td>
+      <td class="${isLast ? 'highlight' : ''}">${s.remainder}</td>
+    </tr>`;
+  });
+
+  html += `</tbody></table></div>`;
+  html += `<p style="margin-top:0.8rem;font-size:0.88rem;color:var(--text-muted);font-style:italic;">
+    ↑ This is the "pulverization" or <em>Kuṭṭaka</em> chain — successive Euclidean divisions until remainder reaches 0 or 1.
+    Quotients highlighted: [${result.quotients.join(', ')}]
+  </p>`;
+
+  document.getElementById('pulv-body').innerHTML = html;
+}
+
+function renderValli(result) {
+  if (!result.solvable) { document.getElementById('valli-block').style.display = 'none'; return; }
+  document.getElementById('valli-block').style.display = '';
+
+  const { quotients, valliData } = result;
+  const { valli, reversedQ } = valliData;
+
+  // Display: valli is built bottom-to-top; reversed quotients
+  // Show it top-to-bottom for clarity (reverse for display)
+  const displayValli = [...valli].reverse();
+  const displayQ = [...reversedQ];
+
+  let html = `<div class="valli-wrap"><p style="font-size:0.9rem;color:var(--text-muted);font-style:italic;margin-bottom:0.8rem;">
+    The <em>Vallī</em> (Creeper) is constructed from the quotients, reading bottom to top. 
+    Seeds: 0 and 1. Each new value = (value above) × (corresponding quotient) + (value two above).
+  </p>`;
+
+  // Build visual table: rows = step, columns = [label | quotient used | valli value]
+  html += `<table class="valli-table"><thead><tr>
+    <td class="label-cell">Position</td>
+    <td class="label-cell">Quotient Used</td>
+    <td class="label-cell">Vallī Value</td>
+  </tr></thead><tbody>`;
+
+  // Show bottom-to-top construction
+  for (let i = 0; i < valli.length; i++) {
+    const pos = i;
+    const qUsed = (i === 0 || i === 1) ? '— (seed)' : reversedQ[i - 2];
+    const isSeed = i < 2;
+    const isResult = i === valli.length - 1 || i === valli.length - 2;
+    html += `<tr>
+      <td>${pos}</td>
+      <td class="${isSeed ? 'dim' : ''}">${qUsed}</td>
+      <td class="${isSeed ? 'seed' : isResult ? 'active' : ''}">${valli[i]}</td>
+    </tr>`;
+  }
+  html += `</tbody></table>`;
+  html += `<div class="valli-arrow">▲ Values build upward: v[n] = v[n-1] × q + v[n-2]</div>`;
+  html += `</div>`;
+
+  document.getElementById('valli-body').innerHTML = html;
+}
+
+function renderMinimalSolution(result) {
+  if (!result.solvable) { document.getElementById('minsol-block').style.display = 'none'; return; }
+  document.getElementById('minsol-block').style.display = '';
+
+  const { aIn, bIn, cIn, minX, minY, check } = result;
+  const lhs = aIn * minX + cIn;
+  const rhs = bIn * minY;
+
+  const html = `
+    <div class="solution-hero">
+      <div class="label">Minimal Positive Solution</div>
+      <div class="values">x = <span>${minX}</span> &nbsp;,&nbsp; y = <span>${minY}</span></div>
+      <div class="verify-badge ${check ? 'ok' : 'err'}">
+        ${check
+          ? `✓ Verified: ${aIn}×(${minX}) + ${cIn} = ${lhs} = ${bIn}×(${minY})`
+          : `✗ Verification failed: ${lhs} ≠ ${rhs}`}
+      </div>
+    </div>`;
+
+  document.getElementById('minsol-body').innerHTML = html;
+}
+
+function renderGeneralSolution(result) {
+  if (!result.solvable) { document.getElementById('gensol-block').style.display = 'none'; return; }
+  document.getElementById('gensol-block').style.display = '';
+
+  const { aIn, bIn, d, minX, minY, xStep, yStep } = result;
+  const xSign = xStep >= 0 ? '+' : '−';
+  const ySign = yStep >= 0 ? '+' : '−';
+  const xStepAbs = Math.abs(xStep);
+  const yStepAbs = Math.abs(yStep);
+
+  let html = `<div class="gen-sol">
+    <span class="var">x</span> = <strong>${minX}</strong> ${xSign} <strong>${xStepAbs}</strong><span class="param">·t</span><br>
+    <span class="var">y</span> = <strong>${minY}</strong> ${ySign} <strong>${yStepAbs}</strong><span class="param">·t</span><br>
+    <span style="color:var(--text-muted);font-size:0.85em;">where t ∈ ℤ (any integer)</span>
+  </div>`;
+
+  // t slider
+  html += `<div class="t-slider-section">
+    <label>Explore different values of t: <span id="t-val">0</span></label>
+    <input type="range" id="t-slider" min="-10" max="10" value="0"
+      aria-label="Parameter t slider"
+      oninput="updateTPreview(${minX},${minY},${xStep},${yStep},${aIn},${bIn},${d})">
+    <div class="t-preview" id="t-preview">
+      t = 0 → x = ${minX}, y = ${minY}
+    </div>
+  </div>`;
+
+  document.getElementById('gensol-body').innerHTML = html;
+}
+
+function updateTPreview(x0, y0, xs, ys, a, b, d) {
+  const t = parseInt(document.getElementById('t-slider').value);
+  document.getElementById('t-val').textContent = t;
+  const x = x0 + xs * t;
+  const y = y0 + ys * t;
+  const ok = (a * x + parseInt(document.getElementById('inp-c').value)) === b * y;
+  document.getElementById('t-preview').innerHTML =
+    `t = ${t} → <strong>x = ${x}</strong>, <strong>y = ${y}</strong> ${ok ? '✓' : '✗'}`;
+}
+
+function renderSteps(result) {
+  if (!result.solvable) {
+    document.getElementById('steps-body').innerHTML = `
+      <div class="step-item">
+        <div class="step-num">!</div>
+        <div class="step-content">
+          <strong>No solution exists.</strong> Āryabhaṭa's Kuṭṭaka method requires GCD(a,b) | c.
+          Since GCD(${result.aIn || ''}, ${result.bIn || ''}) = ${result.d} does not divide c,
+          we cannot proceed with the pulverization.
+        </div>
+      </div>`;
+    return;
+  }
+
+  const { aIn, bIn, cIn, d, steps, quotients, valliData, minX, minY, xStep, yStep } = result;
+
+  const stepsHtml = `
+    <div class="steps-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>Check Solvability:</strong> We compute GCD(${aIn}, ${bIn}) = ${d}.
+          Since ${d} divides ${cIn}, a solution is guaranteed by Āryabhaṭa's theorem.
+          This check comes from <em>Gaṇitapāda</em> verse 32.
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Pulverization Chain</strong> (<em>Kuṭṭaka</em>): We perform repeated Euclidean division,
+          just as one might repeatedly grind a substance to reduce it.
+          This generates quotients: <em>[${quotients.join(', ')}]</em>.
+          The process mirrors the <em>Euclidean algorithm</em> and forms the backbone of the method.
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>Vallī Construction:</strong> We arrange the quotients into the creeper (<em>vallī</em>) table,
+          starting from seeds 0 and 1 at the base. Each new value is computed as:
+          <em>v[n] = v[n−1] × q + v[n−2]</em>, climbing upward like a vine tracing a wall.
+          This reverse propagation elegantly encodes the solution.
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <strong>Solution Extraction:</strong> The top values of the Vallī, adjusted for signs and
+          multiplied by c/d, give us the particular solution x₀ = ${result.x0}, y₀ = ${result.y0}.
+          We then find the minimal positive solution: <em>x = ${minX}, y = ${minY}</em>.
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <strong>General Solution:</strong> The complete family of solutions is parameterized by integer t:
+          <em>x = ${minX} ${xStep >= 0 ? '+' : '−'} ${Math.abs(xStep)}·t</em>,
+          <em>y = ${minY} ${yStep >= 0 ? '+' : '−'} ${Math.abs(yStep)}·t</em>.
+          Use the slider above to explore different values of t and verify each gives a valid solution.
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">★</div>
+        <div class="step-content">
+          <strong>Historical Note:</strong> This exact method was described by <em>Āryabhaṭa</em> in 499 CE
+          in his landmark work <em>Āryabhaṭīya</em>. Over a thousand years later, European mathematicians
+          independently rediscovered equivalent techniques. The Kuṭṭaka remains a testament to the
+          extraordinary depth of ancient Indian mathematical thought.
+        </div>
+      </div>
+    </div>`;
+
+  document.getElementById('steps-body').innerHTML = stepsHtml;
+}
+
+// ─────────────────────────────────────────────────────────
+// MAIN SOLVE ENTRY
+// ─────────────────────────────────────────────────────────
+function solve() {
+  clearError();
+
+  const aRaw = document.getElementById('inp-a').value.trim();
+  const bRaw = document.getElementById('inp-b').value.trim();
+  const cRaw = document.getElementById('inp-c').value.trim();
+
+  // Validation
+  if (aRaw === '' || bRaw === '' || cRaw === '') {
+    showError("Please enter values for all three coefficients (a, b, c)."); return;
+  }
+  const a = parseInt(aRaw), b = parseInt(bRaw), c = parseInt(cRaw);
+  if (isNaN(a) || isNaN(b) || isNaN(c)) {
+    showError("All inputs must be valid integers."); return;
+  }
+  if (a === 0) { showError("Coefficient 'a' cannot be zero. The equation requires a ≠ 0."); return; }
+  if (b === 0) { showError("Coefficient 'b' cannot be zero. The equation requires b ≠ 0."); return; }
+  if (Math.abs(a) > 1e6 || Math.abs(b) > 1e6 || Math.abs(c) > 1e6) {
+    showError("Values are very large (> 10⁶). Results may be imprecise."); return;
+  }
+
+  // Show loading briefly for effect
+  const loading = document.getElementById('loading');
+  const btn = document.getElementById('solve-btn');
+  btn.disabled = true;
+  loading.classList.add('visible');
+
+  setTimeout(() => {
+    try {
+      const result = solveKuttaka(a, b, c);
+
+      renderExistence(result);
+      renderPulverization(result);
+      renderValli(result);
+      renderMinimalSolution(result);
+      renderGeneralSolution(result);
+      renderSteps(result);
+
+      document.getElementById('output').classList.add('visible');
+      document.getElementById('output').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } catch (e) {
+      showError("An unexpected error occurred: " + e.message);
+    }
+    loading.classList.remove('visible');
+    btn.disabled = false;
+  }, 120);
+}
+
+// ─────────────────────────────────────────────────────────
+// COPY TO CLIPBOARD
+// ─────────────────────────────────────────────────────────
+function copyResults() {
+  const a = document.getElementById('inp-a').value;
+  const b = document.getElementById('inp-b').value;
+  const c = document.getElementById('inp-c').value;
+  const minsol = document.getElementById('minsol-body')?.innerText || '';
+  const gensol = document.getElementById('gensol-body')?.innerText || '';
+  const text = `Kuṭṭaka Solver — Equation: ${a}·x + ${c} = ${b}·y\n\n${minsol}\n\nGeneral Solution:\n${gensol}`;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = '✓ Copied!';
+    setTimeout(() => { btn.textContent = '📋 Copy'; }, 2000);
+  });
+}
+
+// ─────────────────────────────────────────────────────────
+// KEYBOARD: Enter to solve
+// ─────────────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') solve();
+});
+
+// Auto-solve on load with default values
+window.addEventListener('load', () => { solve(); });
+</script>
+</body>
+</html>
